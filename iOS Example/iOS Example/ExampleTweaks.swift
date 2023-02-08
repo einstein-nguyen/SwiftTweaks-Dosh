@@ -47,6 +47,8 @@ public struct ExampleTweaks: TweakLibraryType {
 	*/
 
 	public static let featureFlagMainScreenHelperText = Tweak("Feature Flags", "Main Screen", "Show Body Text", true)
+    
+    public static let date = Tweak<Date>("Environment", "Time Warp", "Date", { Date() })
 
 	public static let defaultStore: TweakStore = {
 		let allTweaks: [TweakClusterType] = [
@@ -68,7 +70,8 @@ public struct ExampleTweaks: TweakLibraryType {
 
             actionPrintToConsole,
             
-			featureFlagMainScreenHelperText
+			featureFlagMainScreenHelperText,
+            date
 		]
 
 		// Since SwiftTweaks is a dynamic library, you'll need to determine whether tweaks are enabled.
