@@ -83,7 +83,8 @@ class ViewController: UIViewController {
             ExampleTweaks.fontSizeText1,
             ExampleTweaks.fontSizeText2,
             ExampleTweaks.horizontalMargins,
-            ExampleTweaks.verticalMargins
+            ExampleTweaks.verticalMargins,
+            ExampleTweaks.date
         ]
         
         let multipleBinding = ExampleTweaks.bindMultiple(tweaksToWatch) {

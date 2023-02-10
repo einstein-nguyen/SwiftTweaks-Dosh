@@ -87,13 +87,6 @@ class DateTimePickerView: UIView {
     
     func setDateTime(_ dateTime: Date) {
         var newDateTime = dateTime
-        
-        if let max = tweak.maximumValue, max <= newDateTime {
-            newDateTime = max
-        } else if let min = tweak.minimumValue, min >= newDateTime {
-            newDateTime = min
-        }
-        
         self.dateTime = newDateTime
         
         if timePicker.date != newDateTime {
@@ -136,9 +129,6 @@ class DateTimePickerView: UIView {
         let picker = UIDatePicker()
         picker.backgroundColor = .white
         picker.datePickerMode = .time
-		// NOTE: It seems like we should be able to use `.valueChanged` here, but for some reason that's
-		// not firing when the value changes, so instead use `.editingDidEnd`.
-        picker.addTarget(self, action: #selector(datePickerDidChangeValue(_:)), for: .editingDidEnd)
         return picker
     }()
     
@@ -146,7 +136,6 @@ class DateTimePickerView: UIView {
         let picker = UIDatePicker()
         picker.backgroundColor = .white
         picker.datePickerMode = .date
-        picker.addTarget(self, action: #selector(datePickerDidChangeValue(_:)), for: .valueChanged)
         return picker
     }()
     
@@ -186,6 +175,10 @@ class DateTimePickerView: UIView {
         timePicker.frame = CGRect(
             origin: CGPoint(x: 0, y: timeLabel.frame.maxY),
             size: CGSize(width: bounds.width, height: 160))
+
+		timePicker.addTarget(self, action: #selector(datePickerDidChangeValue), for: .valueChanged)
+		datePicker.addTarget(self, action: #selector(datePickerDidChangeValue), for: .valueChanged)
+
     }
     
     @objc func datePickerDidChangeValue(_ picker: UIDatePicker) {
