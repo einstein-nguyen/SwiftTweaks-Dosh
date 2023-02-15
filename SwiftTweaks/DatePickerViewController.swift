@@ -87,6 +87,12 @@ class DateTimePickerView: UIView {
     
     func setDateTime(_ dateTime: Date) {
         var newDateTime = dateTime
+		
+		if let max = tweak.maximumValue, max <= newDateTime {
+			newDateTime = max
+		} else if let min = tweak.minimumValue, min >= newDateTime {
+			newDateTime = min
+		}
         self.dateTime = newDateTime
         
         if timePicker.date != newDateTime {
